@@ -1,14 +1,15 @@
 package com.example.weatherinfo.scheduler;
 
-import az.pashabank.ls.msweatherinfo.model.WeatherDto;
-import az.pashabank.ls.msweatherinfo.service.WeatherService;
-import az.pashabank.ls.msweatherinfo.utils.RandomWeatherInfoUtil;
-import org.springframework.context.annotation.Profile;
+import com.example.weatherinfo.repository.entity.WeatherEntity;
+import com.example.weatherinfo.service.WeatherService;
+import com.example.weatherinfo.utils.RandomWeatherInfoUtil;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-@Service
-@Profile("!integration")
+@Configuration
+@EnableScheduling
 public class WeatherScheduler {
 
     private final WeatherService weatherService;
@@ -17,9 +18,9 @@ public class WeatherScheduler {
         this.weatherService = weatherService;
     }
 
-    @Scheduled(cron = "0/15 * * * * *")
+    @Scheduled(fixedDelay = 1000)
     public void createRandomWeatherInformation() {
-        WeatherDto weatherDto = RandomWeatherInfoUtil.buildRandomWeatherInformation();
+        WeatherEntity weatherDto = RandomWeatherInfoUtil.buildRandomWeatherInformation();
         weatherService.saveWeatherInfo(weatherDto);
     }
 }
