@@ -1,9 +1,7 @@
 package com.example.weatherinfo.controller;
 
-package az.pashabank.ls.msweatherinfo.controller;
-
-import az.pashabank.ls.msweatherinfo.model.WeatherDto;
-import az.pashabank.ls.msweatherinfo.service.WeatherService;
+import com.example.weatherinfo.repository.entity.WeatherEntity;
+import com.example.weatherinfo.service.WeatherService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,21 +29,20 @@ public class WeatherController {
 
     @GetMapping("/{date}")
     public List<WeatherEntity> getWeatherByDate(@PathVariable(name = "date")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-            LocalDate date) {
+    @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
         logger.debug("Get weather of date {} start", date);
         return weatherService.getWeatherByDate(date);
     }
 
-    @GetMapping("/{date}/in/{city}")
-    public WeatherEntity getWeatherByDateAndCity(
-            @PathVariable(name = "date")
-            @DateTimeFormat(pattern = "yyyy-MM-dd")
-                    LocalDate date,
-            @PathVariable(name = "city") String city) {
-        logger.debug("Get weather of date {} in city {} start", date, city);
-        return weatherService.getWeatherByDateAndCity(date, city);
-    }
+//    @GetMapping("/{date}/in/{city}")
+//    public WeatherEntity getWeatherByDateAndCity(
+//            @PathVariable(name = "date")
+//            @DateTimeFormat(pattern = "yyyy-MM-dd")
+//                    LocalDate date,
+//            @PathVariable(name = "city") String city) {
+//        logger.debug("Get weather of date {} in city {} start", date, city);
+//        return weatherService.getWeatherByDateAndCity(date, city);
+//    }
 
     @GetMapping("/city/{city}")
     public List<WeatherEntity> getWeatherByCity(
